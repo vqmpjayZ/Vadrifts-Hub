@@ -2,12 +2,42 @@
 __   __   ______     _____     ______     __     ______   ______   ______  
 /\ \ / /  /\  __ \   /\  __-.  /\  == \   /\ \   /\  ___\ /\__  _\ /\  ___\ 
 \ \ \'/   \ \  __ \  \ \ \/\ \ \ \  __<   \ \ \  \ \  __\ \/_/\ \/ \ \___  \ 
-\ \__|    \ \_\ \_\  \ \____-  \ \_\ \_\  \ \_\  \ \_\      \ \_\  \/\_____\
- \/_/      \/_/\/_/   \/____/   \/_/ /_/   \/_/   \/_/       \/_/   \/_____/
-
+ \ \__|    \ \_\ \_\  \ \____-  \ \_\ \_\  \ \_\  \ \_\      \ \_\  \/\_____\
+  \/_/      \/_/\/_/   \/____/   \/_/ /_/   \/_/   \/_/       \/_/   \/_____/
+Some loot detections may not work properly
 ]]
 
--- Some may not work correctly
+local function checkForMeshIds(model, meshIds)
+    for _, part in pairs(model:GetDescendants()) do
+        if part:IsA("MeshPart") and part.MeshId then
+            for _, meshId in ipairs(meshIds) do
+                if part.MeshId == meshId then
+                    return true
+                end
+            end
+        end
+        if part:IsA("Part") then
+            local specialMesh = part:FindFirstChildOfClass("SpecialMesh")
+            if specialMesh and specialMesh.MeshId then
+                for _, meshId in ipairs(meshIds) do
+                    if specialMesh.MeshId == meshId then
+                        return true
+                    end
+                end
+            end
+            for _, child in pairs(part:GetChildren()) do
+                if child:IsA("SpecialMesh") and child.MeshId then
+                    for _, meshId in ipairs(meshIds) do
+                        if child.MeshId == meshId then
+                            return true
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return false
+end
 
 return {
     rarities = {
@@ -158,12 +188,11 @@ return {
             name = "Boombox",
             rarity = "Uncommon",
             check = function(model)
-                local handle = model:FindFirstChild("Handle")
-                if handle and handle:IsA("MeshPart") then
-                    return handle.MeshId == "http://www.roblox.com/asset/?id=319536754" or
-                           handle.MeshId == "rbxassetid://319536754"
-                end
-                return false
+                local meshIds = {
+                    "http://www.roblox.com/asset/?id=319536754",
+                    "rbxassetid://319536754"
+                }
+                return checkForMeshIds(model, meshIds)
             end
         },
         {
@@ -177,12 +206,11 @@ return {
             name = "Pickaxe",
             rarity = "Uncommon",
             check = function(model)
-                local handle = model:FindFirstChild("Handle")
-                if handle and handle:IsA("MeshPart") then
-                    return handle.MeshId == "http://www.roblox.com/asset/?id=22147051" or
-                           handle.MeshId == "rbxassetid://22147051"
-                end
-                return false
+                local meshIds = {
+                    "http://www.roblox.com/asset/?id=22147051",
+                    "rbxassetid://22147051"
+                }
+                return checkForMeshIds(model, meshIds)
             end
         },
 
@@ -205,23 +233,7 @@ return {
                     "http://www.roblox.com/asset/?id=27039535",
                     "rbxassetid://27039535"
                 }
-                
-                for _, meshId in ipairs(meshIds) do
-                    for _, part in pairs(model:GetDescendants()) do
-                        if (part:IsA("MeshPart") and part.MeshId == meshId) then
-                            return true
-                        end
-                        if part:IsA("Part") and part:FindFirstChildOfClass("SpecialMesh") and
-                            part:FindFirstChildOfClass("SpecialMesh").MeshId == meshId then
-                            return true
-                        end
-                        if part:IsA("Part") and part.Name == "Handle" and part:FindFirstChild("Mesh") and
-                           part:FindFirstChild("Mesh").MeshId == meshId then
-                            return true
-                        end
-                    end
-                end
-                return false
+                return checkForMeshIds(model, meshIds)
             end
         },
         {
@@ -232,16 +244,7 @@ return {
                     "http://www.roblox.com/asset/?id=268471347",
                     "rbxassetid://268471347"
                 }
-                
-                for _, meshId in ipairs(meshIds) do
-                    for _, part in pairs(model:GetDescendants()) do
-                        if part:IsA("Part") and part:FindFirstChildOfClass("SpecialMesh") and
-                            part:FindFirstChildOfClass("SpecialMesh").MeshId == meshId then
-                            return true
-                        end
-                    end
-                end
-                return false
+                return checkForMeshIds(model, meshIds)
             end
         },
         {
@@ -260,23 +263,7 @@ return {
                     "http://www.roblox.com/asset/?id=81700098",
                     "rbxassetid://81700098"
                 }
-                
-                for _, meshId in ipairs(meshIds) do
-                    for _, part in pairs(model:GetDescendants()) do
-                        if (part:IsA("MeshPart") and part.MeshId == meshId) then
-                            return true
-                        end
-                        if part:IsA("Part") and part:FindFirstChildOfClass("SpecialMesh") and
-                            part:FindFirstChildOfClass("SpecialMesh").MeshId == meshId then
-                            return true
-                        end
-                        if part:IsA("Part") and part.Name == "Handle" and part:FindFirstChild("Mesh") and
-                           part:FindFirstChild("Mesh").MeshId == meshId then
-                            return true
-                        end
-                    end
-                end
-                return false
+                return checkForMeshIds(model, meshIds)
             end
         },
         {
@@ -287,16 +274,10 @@ return {
                     "rbxassetid://6719139437",
                     "http://www.roblox.com/asset/?id=6719139437"
                 }
-                
-                for _, meshId in ipairs(meshIds) do
-                    for _, part in pairs(model:GetDescendants()) do
-                        if (part:IsA("MeshPart") and part.MeshId == meshId) or
-                           (part:IsA("Part") and part:FindFirstChildOfClass("SpecialMesh") and
-                             part:FindFirstChildOfClass("SpecialMesh").MeshId == meshId) then
-                            return true
-                        end
-                    end
+                if checkForMeshIds(model, meshIds) then
+                    return true
                 end
+                -- Fallback check for bright yellow mesh
                 local mesh = model:FindFirstChild("Mesh")
                 return mesh and mesh:IsA("Part") and mesh.BrickColor.Name == "Bright yellow"
             end
@@ -311,23 +292,7 @@ return {
                     "http://www.roblox.com/asset/?id=14655367",
                     "rbxassetid://14655367"
                 }
-                
-                for _, meshId in ipairs(meshIds) do
-                    for _, part in pairs(model:GetDescendants()) do
-                        if (part:IsA("MeshPart") and part.MeshId == meshId) then
-                            return true
-                        end
-                        if part:IsA("Part") and part:FindFirstChildOfClass("SpecialMesh") and
-                            part:FindFirstChildOfClass("SpecialMesh").MeshId == meshId then
-                            return true
-                        end
-                        if part:IsA("Part") and part.Name == "Handle" and part:FindFirstChild("Mesh") and
-                           part:FindFirstChild("Mesh").MeshId == meshId then
-                            return true
-                        end
-                    end
-                end
-                return false
+                return checkForMeshIds(model, meshIds)
             end
         },
         {
@@ -345,17 +310,7 @@ return {
                     "rbxassetid://4770107066",
                     "http://www.roblox.com/asset/?id=4770107066"
                 }
-                
-                for _, meshId in ipairs(meshIds) do
-                    for _, part in pairs(model:GetDescendants()) do
-                        if (part:IsA("MeshPart") and part.MeshId == meshId) or
-                           (part:IsA("Part") and part:FindFirstChildOfClass("SpecialMesh") and
-                             part:FindFirstChildOfClass("SpecialMesh").MeshId == meshId) then
-                            return true
-                        end
-                    end
-                end
-                return false
+                return checkForMeshIds(model, meshIds)
             end
         },
 
@@ -392,37 +347,17 @@ return {
             name = "Treasure Chest",
             rarity = "Spectrum",
             check = function(model)
-            local meshIds = {
-                "rbxassetid://117542870",
-                "http://www.roblox.com/asset/?id=117542870",
-                "rbxassetid://123781273",
-                "http://www.roblox.com/asset/?id=123781273",
-                "rbxassetid://4799316239",
-                "http://www.roblox.com/asset/?id=4799316239",
-                "rbxassetid://144474705",
-                "http://www.roblox.com/asset/?id=144474705"
-            }
-        
-                for _, meshId in ipairs(meshIds) do
-                    for _, part in pairs(model:GetDescendants()) do
-                        if (part:IsA("MeshPart") and part.MeshId == meshId) or
-                        (part:IsA("Part") and part:FindFirstChildOfClass("SpecialMesh") and
-                            part:FindFirstChildOfClass("SpecialMesh").MeshId == meshId) then
-                            return true
-                        end
-                    end
-                end
-        
-                for _, meshId in ipairs(meshIds) do
-                    for _, part in pairs(model:GetDescendants()) do
-                        if part:IsA("Part") and part.Name == "Handle" and part:FindFirstChild("Mesh") and
-                        part:FindFirstChild("Mesh").MeshId == meshId then
-                            return true
-                        end
-                    end
-                end
-        
-                return false
+                local meshIds = {
+                    "rbxassetid://117542870",
+                    "http://www.roblox.com/asset/?id=117542870",
+                    "rbxassetid://123781273",
+                    "http://www.roblox.com/asset/?id=123781273",
+                    "rbxassetid://4799316239",
+                    "http://www.roblox.com/asset/?id=4799316239",
+                    "rbxassetid://144474705",
+                    "http://www.roblox.com/asset/?id=144474705"
+                }
+                return checkForMeshIds(model, meshIds)
             end
         }
     }
