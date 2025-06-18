@@ -331,6 +331,7 @@ return {
             rarity = "Spectrum",
             check = function(model)
               local meshIds = {
+              "rbxassetid://117542870",
               "rbxassetid://123781273",
               "rbxassetid://4799316239",
               "rbxassetid://144474705"
