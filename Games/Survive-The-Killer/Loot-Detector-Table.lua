@@ -1,5 +1,5 @@
 --[[
-A Loot detector script for 'Survive the Killer' in Roblox.
+A Loot detector script for 'Survive the Killer' in Roblox made by Vadrifts.
 Works on All executors of course. Can be used for detections, ESP, or grabbing Loot.
 ______________________________________________________________________________________________________________________________________________________
 __   __   ______     _____     ______     __     ______   ______   ______  
