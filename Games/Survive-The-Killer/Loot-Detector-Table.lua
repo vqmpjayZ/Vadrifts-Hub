@@ -1,10 +1,20 @@
---[[ 
+--[[
+A Loot detector script for 'Survive the Killer' in Roblox.
+Works on All executors of course. Can be used for detections, ESP, or grabbing Loot.
+______________________________________________________________________________________________________________________________________________________
 __   __   ______     _____     ______     __     ______   ______   ______  
 /\ \ / /  /\  __ \   /\  __-.  /\  == \   /\ \   /\  ___\ /\__  _\ /\  ___\ 
-\ \ \'/   \ \  __ \  \ \ \/\ \ \ \  __<   \ \ \  \ \  __\ \/_/\ \/ \ \___  \ 
+\ \ \'/   \ \  __ \  \ \ \/\ \ \ \  __<   \ \ \  \ \  __\ \/_/\ \/ \ \___  \  v2.0.3
  \ \__|    \ \_\ \_\  \ \____-  \ \_\ \_\  \ \_\  \ \_\      \ \_\  \/\_____\
   \/_/      \/_/\/_/   \/____/   \/_/ /_/   \/_/   \/_/       \/_/   \/_____/
-Some loot detections may not work properly
+                    https://vadriftz.ondrender.com/discord
+_______________________________________________________________________________________________________________________________________________________
+
+* Note: Some loot detections may not work properly. Please report them to us on our Discord, but feel free to find a fix yourself as well.
+Change Log:
+- Fixed Detection for Treasure Chest
+- Fixed most common and uncommon detections
+
 ]]
 
 local function checkForMeshIds(model, meshIds)
