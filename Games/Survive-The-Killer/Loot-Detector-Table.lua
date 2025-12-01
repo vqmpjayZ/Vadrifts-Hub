@@ -1,4 +1,6 @@
 --[[
+(GAME CHANGED WHOLE WAY LOOT IS COLLECTED SO THIS IS PRACTICALLY USELESS NOW)
+
 A Loot detector script for 'Survive the Killer' in Roblox made by Vadrifts.
 Works on All executors of course. Can be used for detections, ESP, or grabbing Loot.
 ______________________________________________________________________________________________________________________________________________________
@@ -14,7 +16,6 @@ ________________________________________________________________________________
 Change Log:
 - Fixed Detection for Treasure Chest
 - Fixed most common and uncommon detections
-
 ]]
 
 local function checkForMeshIds(model, meshIds)
